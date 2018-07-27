@@ -37,7 +37,7 @@ const timer = document.getElementById("timer");
 const launch = moment("2018-08-14T06:30:00-07:00");
 
 const refresh = function() {
-  timer.innerHTML = launch.fromNow(true);
+  timer.innerHTML = launch.fromNow(true) + ".";
 }
 
 window.setInterval(refresh, 1000);
