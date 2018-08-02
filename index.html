@@ -16,31 +16,95 @@ html, body { width: 100%; height: 100%; margin: 0; padding: 0; }
   height: 100%;
 
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  flex-direction: row;
   justify-content: center;
 }
 
-h1 {
-  text-align: center;
+.component .countdown, .component .label {
+  display: block;
 }
+
+.component .countdown {
+  font-weight: 400;
+  font-size: 74pt;
+  line-height: 60pt;
+  color: #4d3b4f;
+}
+
+.component .label {
+  text-align: right;
+  color: #7c5d7f;
+}
+
+.component {
+  margin-right: 30pt;
+}
+
+.component:last-child {
+  margin-right: 0;
+}
+
 </style>
   </head>
 
   <body>
     <div class="container">
-      <h1 class="centered" id="timer"></h1>
+      <div class="component">
+        <span id="days" class="countdown"></span>
+        <span class="label">days.</span>
+      </div>
+      <div class="component">
+        <span id="hours" class="countdown"></span>
+        <span class="label">hours.</span>
+      </div>
+      <div class="component">
+        <span id="minutes" class="countdown"></span>
+        <span class="label">minutes.</span>
+      </div>
+      <div class="component">
+        <span id="seconds" class="countdown"></span>
+        <span class="label">seconds.</span>
+      </div>
     </div>
   </body>
 
   <script>
-const timer = document.getElementById("timer");
+const daysTimer = document.getElementById("days");
+const hoursTimer = document.getElementById("hours");
+const minutesTimer = document.getElementById("minutes");
+const secondsTimer = document.getElementById("seconds");
 const launch = moment("2018-08-14T06:30:00-07:00");
 
-const refresh = function() {
-  timer.innerHTML = launch.fromNow(true) + ".";
+const ms = function(i) {
+  return i % 1000;
 }
 
-window.setInterval(refresh, 1000);
+const secs = function(i) {
+  return Math.floor((i / 1000) % (60));
+}
+
+const mins = function(i) {
+  return Math.floor(i % (60 * 60 * 1000) / (60 * 1000));
+}
+
+const hours = function(i) {
+  return Math.floor(i % (24 * 60 * 60 * 1000 ) / (60 * 60 * 1000));
+}
+
+const days = function(i) {
+  return Math.floor(i / (24 * 60 * 60 * 1000));
+}
+
+const refresh = function() {
+  let diff = launch.diff(moment(), 'milliseconds');
+  daysTimer.innerHTML = days(diff);
+  hoursTimer.innerHTML = hours(diff);
+  minutesTimer.innerHTML = mins(diff);
+  secondsTimer.innerHTML = secs(diff);
+}
+
+window.setInterval(refresh, 50);
 refresh();
   </script>
 </html>
