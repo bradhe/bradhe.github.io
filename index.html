@@ -102,14 +102,14 @@ const days = function(i) {
 }
 
 const refresh = function() {
-  let diff = launch.diff(moment(), 'milliseconds');
+  var diff = launch.diff(moment(), 'milliseconds');
   daysTimer.innerHTML = days(diff);
   hoursTimer.innerHTML = hours(diff);
   minutesTimer.innerHTML = mins(diff);
   secondsTimer.innerHTML = secs(diff);
 }
 
-window.setInterval(refresh, 50);
+window.setInterval(refresh, 1000);
 refresh();
   </script>
 </html>
